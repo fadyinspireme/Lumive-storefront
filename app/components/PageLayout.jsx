@@ -44,20 +44,29 @@ export function PageLayout({
   );
 }
 
+function CartHeading({count}) {
+  return (
+    <span className="cart-heading">
+      Your Bag
+      {count > 0 && <span className="cart-heading-count">{count}</span>}
+    </span>
+  );
+}
+
 /**
  * @param {{cart: PageLayoutProps['cart']}}
  */
 function CartAside({cart}) {
   return (
-    <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
-    </Aside>
+    <Suspense fallback={<Aside type="cart" heading={<CartHeading count={0} />}><p>Loading cart ...</p></Aside>}>
+      <Await resolve={cart}>
+        {(resolvedCart) => (
+          <Aside type="cart" heading={<CartHeading count={resolvedCart?.totalQuantity ?? 0} />}>
+            <CartMain cart={resolvedCart} layout="aside" />
+          </Aside>
+        )}
+      </Await>
+    </Suspense>
   );
 }
 

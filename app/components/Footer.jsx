@@ -34,7 +34,7 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
 function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
   return (
     <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
+      {(menu || FALLBACK_FOOTER_MENU).items.filter(item => item.title !== 'Terms of Service').map((item) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
         const url =
@@ -92,15 +92,6 @@ const FALLBACK_FOOTER_MENU = {
       title: 'Shipping Policy',
       type: 'SHOP_POLICY',
       url: '/policies/shipping-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
-      tags: [],
-      title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
       items: [],
     },
   ],

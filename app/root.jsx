@@ -9,7 +9,7 @@ import {
   ScrollRestoration,
   useRouteLoaderData,
 } from 'react-router';
-import favicon from '~/assets/favicon.svg';
+const favicon = '/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
@@ -150,6 +150,7 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <Meta />

@@ -2,35 +2,33 @@ import {defineConfig} from 'vite';
 import {hydrogen} from '@shopify/hydrogen/vite';
 import {oxygen} from '@shopify/mini-oxygen/vite';
 import {reactRouter} from '@react-router/dev/vite';
+import tailwindcss from '@tailwindcss/vite';
+import {fileURLToPath} from 'url';
+import {dirname, resolve} from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [hydrogen(), oxygen(), reactRouter()],
+  plugins: [tailwindcss(), hydrogen(), oxygen(), reactRouter()],
   resolve: {
-    tsconfigPaths: true,
+    alias: {
+      '~': resolve(__dirname, 'app'),
+    },
   },
   build: {
-    // Allow a strict Content-Security-Policy
-    // without inlining assets as base64:
     assetsInlineLimit: 0,
   },
   ssr: {
     optimizeDeps: {
-      /**
-       * Include dependencies here if they throw CJS<>ESM errors.
-       * For example, for the following error:
-       *
-       * > ReferenceError: module is not defined
-       * >   at /Users/.../node_modules/example-dep/index.js:1:1
-       *
-       * Include 'example-dep' in the array below.
-       * @see https://vitejs.dev/config/dep-optimization-options
-       */
       include: [
         'react-router > set-cookie-parser',
         'react-router > cookie',
         'react-router',
       ],
     },
+    /* Three.js + R3F access browser APIs — must not run on the server */
+    noExternal: [],
+    external: ['three', '@react-three/fiber', '@react-three/drei'],
   },
   server: {
     allowedHosts: ['.tryhydrogen.dev'],

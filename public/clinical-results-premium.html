@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Clinical Results — Lumive Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream:      #F7F4EE;
+    --warm-white: #FDFBF7;
+    --charcoal:   #1C1C1A;
+    --gold:       #B8935A;
+    --gold-light: #D4AF78;
+    --mist:       #E8E4DC;
+    --deep:       #0F0F0E;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION 1: HERO ── */
+  .s1 {
+    padding: 0.5rem 2rem 1.5rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+  }
+  .s1-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .s1-line {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 1.6rem;
+    opacity: 0.6;
+  }
+  .s1-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .s1-sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(28,28,26,0.55);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── SECTION 2: IMAGE ── */
+  .s2 {
+    padding: 0 1.5rem 2.75rem;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+  }
+  .s2-frame {
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    background: var(--mist);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 12px 48px rgba(28,28,26,0.12),
+      0 2px 8px rgba(28,28,26,0.06);
+  }
+  .s2-frame img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+  .s2-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    padding: 2rem 1.25rem 0.9rem;
+    background: linear-gradient(to top, rgba(15,15,14,0.55) 0%, transparent 100%);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(253,251,247,0.75);
+    text-align: right;
+  }
+  .s2-tag {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(253,251,247,0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(253,251,247,0.2);
+    border-radius: 20px;
+    padding: 0.3rem 0.75rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(253,251,247,0.85);
+  }
+
+  /* ── SECTION 3: STATS ── */
+  .s3 {
+    padding: 0 1.75rem 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+  }
+  .s3-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--mist);
+    margin-bottom: 2rem;
+  }
+  .s3-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .s3-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--charcoal);
+    flex-shrink: 0;
+  }
+  .s3-number sup {
+    font-size: 0.38em;
+    vertical-align: super;
+    letter-spacing: 0;
+    font-weight: 300;
+  }
+  .s3-text {
+    padding-top: 0.6rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(28,28,26,0.6);
+    letter-spacing: 0.01em;
+  }
+  .s3-bar-wrap {
+    width: 100%;
+    height: 1.5px;
+    background: rgba(28,28,26,0.08);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .s3-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.22,1,0.36,1) 0.6s;
+  }
+  .s3-note {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 10.5px;
+    line-height: 1.65;
+    color: rgba(28,28,26,0.32);
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+  }
+
+  /* ── SECTION 4: NAV ── */
+  .s4 {
+    padding: 0 1.75rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.65s forwards;
+  }
+  .s4-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--mist);
+    background: var(--warm-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--charcoal);
+    transition: all 250ms ease;
+    box-shadow: 0 1px 6px rgba(28,28,26,0.07);
+  }
+  .s4-btn:hover {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+    color: var(--warm-white);
+    box-shadow: 0 4px 16px rgba(28,28,26,0.2);
+  }
+  .s4-count {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: rgba(28,28,26,0.38);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  @keyframes countUp {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- SECTION 1: HERO -->
+  <div class="s1">
+    <span class="s1-label">Clinical Study</span>
+    <div class="s1-line"></div>
+    <h1 class="s1-title">Clinically Proven<br>Results</h1>
+    <p class="s1-sub">Visible improvements in skin appearance<br>with consistent use.</p>
+  </div>
+
+  <!-- SECTION 2: IMAGE -->
+  <div class="s2">
+    <div class="s2-frame">
+      <img src="/images/clinical-wrinkles.png" alt="Before and after comparison"/>
+      <span class="s2-tag">Before / After</span>
+      <p class="s2-caption">Unretouched. 1×/day use for 12 weeks</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: STATS -->
+  <div class="s3" id="stats">
+    <div class="s3-divider"></div>
+    <div class="s3-row">
+      <div class="s3-number" id="pct">0<sup>%</sup></div>
+      <p class="s3-text">of participants reported<br>improvements in fine lines</p>
+    </div>
+    <div class="s3-bar-wrap">
+      <div class="s3-bar-fill" id="bar"></div>
+    </div>
+    <p class="s3-note">*12-week clinical study with 104 subjects and 1×/day use of 14-min LED treatment. Individual results may vary.</p>
+  </div>
+
+  <!-- SECTION 4: NAV -->
+  <div class="s4">
+    <button class="s4-btn" onclick="changeSlide(-1)" aria-label="Previous">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="s4-count" id="nav-count">1 / 2</span>
+    <button class="s4-btn" onclick="changeSlide(1)" aria-label="Next">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+<script>
+  const SLIDES = [
+    {stat: 86, label: 'of participants reported<br>improvements in fine lines', img: '/images/clinical-wrinkles.png', caption: 'Unretouched. 1×/day use for 12 weeks'},
+    {stat: 93, label: 'of participants reported<br>clearer skin and reduced breakouts', img: '/images/clinical-acne.png', caption: 'Unretouched. 1×/day use for 12 weeks'},
+  ];
+  let current = 0;
+  let animated = false;
+
+  function animateCount(target) {
+    const el = document.getElementById('pct');
+    const bar = document.getElementById('bar');
+    const duration = 1400;
+    const start = performance.now();
+    bar.style.width = target + '%';
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(eased * target) + '<sup>%</sup>';
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function changeSlide(dir) {
+    current = (current + dir + SLIDES.length) % SLIDES.length;
+    const s = SLIDES[current];
+    const img = document.querySelector('.s2-frame img');
+    const label = document.querySelector('.s3-text');
+    const stats = document.getElementById('stats');
+    stats.style.opacity = '0';
+    stats.style.transform = 'translateY(8px)';
+    setTimeout(() => {
+      img.src = s.img;
+      label.innerHTML = s.label;
+      document.getElementById('nav-count').textContent = (current + 1) + ' / ' + SLIDES.length;
+      document.getElementById('bar').style.width = '0%';
+      stats.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      stats.style.opacity = '1';
+      stats.style.transform = 'translateY(0)';
+      setTimeout(() => animateCount(s.stat), 100);
+    }, 220);
+  }
+
+  // Trigger count on load
+  const obs = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !animated) {
+      animated = true;
+      animateCount(SLIDES[current].stat);
+    }
+  }, {threshold: 0.3});
+  obs.observe(document.getElementById('stats'));
+</script>
+</body>
+</html>

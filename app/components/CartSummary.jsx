@@ -1,59 +1,56 @@
-import {CartForm, Money} from '@shopify/hydrogen';
-import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import {Money} from '@shopify/hydrogen';
 
-/**
- * @param {CartSummaryProps}
- */
 export function CartSummary({cart, layout}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-  const summaryId = useId();
-  const discountsHeadingId = useId();
-  const discountCodeInputId = useId();
-  const giftCardHeadingId = useId();
-  const giftCardInputId = useId();
+
+  const subtotal = cart?.cost?.subtotalAmount;
 
   return (
-    <div aria-labelledby={summaryId} className={className}>
-      <h4 id={summaryId}>Totals</h4>
-      <dl role="group" className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cart?.cost?.subtotalAmount?.amount ? (
-            <Money data={cart?.cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
-      <CartDiscounts
-        discountCodes={cart?.discountCodes}
-        discountsHeadingId={discountsHeadingId}
-        discountCodeInputId={discountCodeInputId}
-      />
-      <CartGiftCard
-        giftCardCodes={cart?.appliedGiftCards}
-        giftCardHeadingId={giftCardHeadingId}
-        giftCardInputId={giftCardInputId}
-      />
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
-    </div>
-  );
-}
+    <div className={`cs-wrap ${className}`}>
 
-/**
- * @param {{checkoutUrl?: string}}
- */
-function CartCheckoutActions({checkoutUrl}) {
-  if (!checkoutUrl) return null;
+      {/* Price breakdown */}
+      <div className="cs-breakdown">
+        <div className="cs-row">
+          <span className="cs-row-label">Subtotal</span>
+          <span className="cs-row-value">
+            {subtotal?.amount ? <Money data={subtotal} /> : '—'}
+          </span>
+        </div>
+        <div className="cs-row">
+          <span className="cs-row-label">Shipping</span>
+          <span className="cs-row-value cs-row-free">Free</span>
+        </div>
+        <div className="cs-row">
+          <span className="cs-row-label">Tax</span>
+          <span className="cs-row-value cs-row-muted">Calculated at checkout</span>
+        </div>
+      </div>
 
-  return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
-      </a>
-      <br />
+      <div className="cs-separator" />
+
+      {/* Total */}
+      <div className="cs-total-row">
+        <span className="cs-total-label">Subtotal</span>
+        <span className="cs-total-amount">
+          {subtotal?.amount ? <Money data={subtotal} /> : '—'}
+        </span>
+      </div>
+
+      <p className="cs-taxes-note">Taxes included. Discounts and shipping calculated at checkout.</p>
+
+      {/* Checkout button */}
+      {cart?.checkoutUrl && (
+        <a href={cart.checkoutUrl} className="cs-checkout-btn" target="_self">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Continue Securely
+        </a>
+      )}
+
+      <p className="cs-note">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure SSL encrypted checkout
+      </p>
     </div>
   );
 }
